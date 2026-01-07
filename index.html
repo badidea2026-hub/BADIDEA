@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BADIDEA — Meme Coin</title>
+  <meta name="description" content="BADIDEA is probably a bad idea. Do not buy this coin." />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #000000;
+      --muted: rgba(0,0,0,0.62);
+      --hair: rgba(0,0,0,0.12);
+      --hair2: rgba(0,0,0,0.18);
+      --max: 980px;
+      --pad: clamp(16px, 3vw, 28px);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: calc(var(--pad) * 1.25) var(--pad);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0 18px;
+      border-bottom: 1px solid var(--hair);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+    .brand .name {
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .brand .ticker {
+      font-family: var(--mono);
+      font-size: 12px;
+      border: 1px solid var(--hair2);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    nav a {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--hair);
+      border-radius: 999px;
+    }
+
+    .hero {
+      padding: clamp(32px, 6vw, 72px) 0;
+      border-bottom: 1px solid var(--hair);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(44px, 8vw, 86px);
+      letter-spacing: -0.06em;
+      line-height: 0.95;
+    }
+
+    .hero .sub {
+      margin-top: 14px;
+      font-size: clamp(16px, 2.3vw, 22px);
+      max-width: 62ch;
+    }
+
+    .warning {
+      margin-top: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--fg);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(14px, 2.5vw, 22px);
+      padding: clamp(26px, 4.5vw, 40px) 0;
+      border-bottom: 1px solid var(--hair);
+    }
+
+    .card {
+      border: 1px solid var(--hair2);
+      border-radius: var(--radius);
+      padding: clamp(16px, 2.4vw, 22px);
+      background: #fff;
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h2 {
+      margin: 10px 0 10px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    p { margin: 10px 0; }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+    li { margin: 8px 0; }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .big-disclaimer {
+      padding: clamp(28px, 6vw, 70px) 0;
+      text-align: left;
+    }
+
+    .big-disclaimer .giant {
+      font-size: clamp(28px, 5.3vw, 56px);
+      letter-spacing: -0.05em;
+      line-height: 1.0;
+      font-weight: 850;
+      margin: 0;
+      max-width: 18ch;
+    }
+
+    .big-disclaimer .do-not {
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 14px;
+      border-top: 1px solid var(--hair);
+      padding-top: 14px;
+      max-width: 70ch;
+    }
+
+    .footer {
+      border-top: 1px solid var(--hair);
+      padding: 18px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: baseline;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .ticker-tape {
+      margin-top: 16px;
+      border: 1px solid var(--hair2);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--hair);
+      margin: 18px 0;
+    }
+
+    .btnrow {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--hair2);
+      background: #fff;
+      color: #000;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+    button:hover { border-color: #000; }
+
+    /* Tooltip */
+    .tip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 10px);
+      white-space: nowrap;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--hair2);
+      background: #fff;
+      color: #000;
+      font-family: var(--mono);
+      font-size: 12px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease;
+    }
+    .tip:hover::after { opacity: 1; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      background: #fff;
+      border: 1px solid var(--hair2);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #000;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.10);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease;
+      max-width: min(680px, calc(100vw - 28px));
+      text-align: center;
+    }
+    .toast.show { opacity: 1; }
+
+    details {
+      border: 1px solid var(--hair2);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      background: #fff;
+    }
+    summary {
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      nav { justify-content: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .toast { transition: none; }
+      .tip::after { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="name">BADIDEA</div>
+        <div class="ticker">$BADIDEA</div>
+      </div>
+      <nav aria-label="Page navigation">
+        <a href="#what">What</a>
+        <a href="#dont">Don’t Buy</a>
+        <a href="#trading">Trading</a>
+        <a href="#disclaimer">Disclaimer</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <h1>BADIDEA</h1>
+      <p class="sub">This is probably a bad idea. A meme coin built on radical honesty, emotional damage, and the ancient human instinct to click <span class=\"mono\">BUY</span> at 3:17 AM.</p>
+      <div class="warning" role="note" aria-label="Warning">Do not buy this coin</div>
+
+      <div class="btnrow" aria-label="Actions">
+        <a class="tip" data-tip="nobody reads this" href="/mnt/data/BADIDEA_Whitepaper_WarningLabel.pdf" download>
+          <button>BADIDEA WHITEPAPER</button>
+        </a>
+        <a class="tip" data-tip="fine, read it here" href="#whitepaper">
+          <button>READ ONLINE</button>
+        </a>
+        <button id="btnCopy">Copy “Do not buy”</button>
+        <button id="btnGenerate">Generate a bad idea</button>
+        <button id="btnReality">Reality check</button>
+      </div>
+
+      <div class="ticker-tape" aria-label="BADIDEA ticker tape">
+        <strong>LIVE FEED (unverified):</strong>
+        <span id="tape">Red candle. Another red candle. Someone calls it support. It is not support.</span>
+      </div>
+    </section>
+
+    <section class="grid" id="what">
+      <div class="card">
+        <div class="kicker">What is BADIDEA?</div>
+        <h2>A warning label with a chart.</h2>
+        <p><strong>BADIDEA</strong> is a meme coin that doesn’t pretend to be the future of finance. It’s the present. The part where people ignore red flags because the candles look like opportunity.</p>
+        <p>It exists for the same reason you’ve ever aped: boredom, FOMO, and the belief that <em>this time</em> the bad trade will be the good one.</p>
+        <div class="divider"></div>
+        <p class="mono">If it pumps, it shouldn’t have. If it dumps, you knew it would. If it survives, it becomes a personality trait.</p>
+      </div>
+
+      <div class="card" id="dont">
+        <div class="kicker">Why you shouldn’t buy this coin</div>
+        <h2>Because you know better.</h2>
+        <ul>
+          <li>Chasing 20x because the timeline said “early”.</li>
+          <li>Rotating into obvious rugs because “team seems active”.</li>
+          <li>Trading at 3 AM because you’re “researching”.</li>
+          <li>Ignoring red flags because the meme is funny.</li>
+          <li>Confusing entertainment with investment.</li>
+        </ul>
+        <p class="mono">Do not buy BADIDEA. (People who ignore this will later say they were “testing a thesis”.)</p>
+      </div>
+    </section>
+
+    <section class="grid" id="trading">
+      <div class="card">
+        <div class="kicker">Trading meme coins (a bad idea)</div>
+        <h2>The ritual</h2>
+        <p>You wake up. You check the chart. You promise you won’t chase. You chase anyway. You call it “momentum.”</p>
+        <p>You see a green candle and think: <span class="mono">"This is confirmation."</span> You see a red candle and think: <span class="mono">"This is a discount."</span></p>
+        <p>Then liquidity evaporates like your sleep schedule. Someone says “dev cooking.” Someone else says “buy the dip.” The dip buys you.</p>
+        <div class="divider"></div>
+        <p class="mono">Common symptoms include: refreshing every 12 seconds, reading replies as due diligence, and calling a straight-line down move "healthy consolidation."</p>
+      </div>
+
+      <div class="card">
+        <div class="kicker">Insane details on bad ideas</div>
+        <h2>How it happens (every time)</h2>
+        <ul>
+          <li><strong>Stage 1:</strong> “Just a small entry.”</li>
+          <li><strong>Stage 2:</strong> “If it dips, I’ll add.”</li>
+          <li><strong>Stage 3:</strong> It dips. You add. It dips again. You add again. Now you’re a long-term investor.</li>
+          <li><strong>Stage 4:</strong> A random pump. You don’t sell because you want a screenshot.</li>
+          <li><strong>Stage 5:</strong> The screenshot becomes a memorial.</li>
+        </ul>
+        <p class="mono">BADIDEA is a mirror. If you’re offended, it’s working.</p>
+      </div>
+    </section>
+
+    <section class="grid" id="whitepaper">
+      <div class="card">
+        <div class="kicker">BADIDEA WHITEPAPER (ONLINE)</div>
+        <h2>The Official Bad Whitepaper</h2>
+        <p class="mono">Yes, it’s real. No, it won’t help. But it will warn you.</p>
+
+        <details open>
+          <summary>Abstract</summary>
+          <p>BADIDEA is a meme coin created to honor the long-standing crypto tradition of making bad financial decisions with extreme confidence. This whitepaper exists because every meme coin has one, and nobody reads them anyway.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Introduction</summary>
+          <p>Buying meme coins is a bad idea.</p>
+          <p>You know it. We know it. Your wallet definitely knows it.</p>
+          <p>BADIDEA represents every late entry, every FOMO candle, and every time you said “this one feels different.” It was not.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Problem Statement</summary>
+          <p>The meme coin space is full of fake utility, fake roadmaps, and real losses. Every project claims to change the game while launching the same token with a different logo. BADIDEA solves this by not pretending.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Solution</summary>
+          <p>BADIDEA does nothing. No AI. No gaming. No metaverse. No ecosystem. Just vibes, memes, and questionable decisions — delivered honestly.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Tokenomics</summary>
+          <ul>
+            <li><strong>Name:</strong> BADIDEA</li>
+            <li><strong>Ticker:</strong> BADIDEA</li>
+            <li><strong>Supply:</strong> A number that sounded good at the time</li>
+            <li><strong>Taxes:</strong> 0%</li>
+          </ul>
+          <p>Distribution includes liquidity, holders who say they won’t sell, and holders who definitely will.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Utility</summary>
+          <p>There is none.</p>
+          <p>The only utility is memes, chart watching, group chat coping, and convincing yourself not to sell.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Community</summary>
+          <p>The BADIDEA community consists of early buyers, late buyers, panic sellers, and eternal holders. Everyone is wrong together. That’s the culture.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Roadmap</summary>
+          <ul>
+            <li>Phase 1: Launch</li>
+            <li>Phase 2: Delusion</li>
+            <li>Phase 3: Copium</li>
+            <li>Phase 4: “Just wait”</li>
+            <li>Phase 5: Acceptance</li>
+            <li>Phase 6: “At least the memes were good”</li>
+          </ul>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Security</summary>
+          <p>The contract is simple. No minting. No hidden mechanics. If anything goes wrong, it will be emotionally, not technically.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Disclaimer</summary>
+          <p>BADIDEA is a meme coin created for entertainment purposes only. It is not financial advice, an investment, or a plan. If you lose money, that was expected. If you make money, that is suspicious.</p>
+        </details>
+        <div class="divider"></div>
+
+        <details>
+          <summary>Final Words</summary>
+          <p>This was a bad idea.</p>
+          <p>You knew it. You did it anyway.</p>
+        </details>
+
+        <div class="divider"></div>
+        <p class="mono">Prefer the warning-label PDF? Use the button above (the one you hovered and got called out by).</p>
+      </div>
+
+      <div class="card">
+        <div class="kicker">Download</div>
+        <h2>Warning‑Label PDF</h2>
+        <p>Styled like a caution sticker for your wallet.</p>
+        <p class="mono"><a href="/mnt/data/BADIDEA_Whitepaper_WarningLabel.pdf" download>Download BADIDEA_Whitepaper_WarningLabel.pdf</a></p>
+      </div>
+    </section>
+
+    <section class="big-disclaimer" id="disclaimer">
+      <p class="giant">This is not financial advice.<br/>This is barely an idea.</p>
+      <p class="do-not"><strong>Do not buy BADIDEA.</strong> There is no promise of profit. There is no promise of anything. You are responsible for your own choices, including the ones you already know are questionable.</p>
+      <div class="divider"></div>
+      <p class="mono">If you still want to proceed, that’s the most BADIDEA thing you could do.</p>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> BADIDEA. All wrongs reserved.</div>
+      <div>White background. Black text. No excuses.</div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    const tape = document.getElementById('tape');
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Actions
+    document.getElementById('btnCopy').addEventListener('click', async () => {
+      const text = 'Do not buy this coin.';
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied: "Do not buy this coin."');
+      } catch {
+        showToast('Copy failed. Your browser chose violence.');
+      }
+    });
+
+    const badIdeas = [
+      'Aping a chart because someone typed “early” in all caps.',
+      'Rotating your entire bag into a coin with a website made in 12 minutes.',
+      'Calling a 45% drawdown “healthy.”',
+      'Buying the top, then tweeting “long-term hold.”',
+      'Reading a meme as due diligence.',
+      'Trusting a roadmap that starts with “Phase 1: community.”',
+      'Holding through a rug because you want a comeback story.',
+      'Adding liquidity to “support the chart” and then getting extracted.',
+      'Believing “dev doxxed” means “dev won’t vanish.”',
+      'Saying “I’ll set a stop loss” and never doing it.'
+    ];
+
+    document.getElementById('btnGenerate').addEventListener('click', () => {
+      const pick = badIdeas[Math.floor(Math.random() * badIdeas.length)];
+      showToast(pick);
+    });
+
+    const reality = [
+      'Reminder: a green candle is not a business model.',
+      'Reminder: vibes are not liquidity.',
+      'Reminder: “community” is not collateral.',
+      'Reminder: if you feel FOMO, you are late by definition.',
+      'Reminder: red candles build character, not portfolios.'
+    ];
+
+    document.getElementById('btnReality').addEventListener('click', () => {
+      showToast(reality[Math.floor(Math.random() * reality.length)]);
+    });
+
+    // Subtle, ironic ticker tape updates
+    const tapeLines = [
+      'Red candle. Another red candle. Someone calls it support. It is not support.',
+      'Volume spikes. Timeline screams. You hover over BUY. Your better judgment logs off.',
+      'A dev says “soon”. The chart hears “never.”',
+      'A whale buys. Everyone follows. A whale sells. Everyone learns.',
+      'Someone posts a rocket emoji. The market posts a liquidation wick.'
+    ];
+
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % tapeLines.length;
+      tape.textContent = tapeLines[i];
+    }, 5200);
+  </script>
+</body>
+</html>
+
+
